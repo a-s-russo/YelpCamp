@@ -1,14 +1,18 @@
-import campgrounds from "./routes/campgrounds.js";
+import campgroundRoutes from "./routes/campgrounds.js";
 import ejsMate from "ejs-mate";
 import express from "express";
 import flash from "connect-flash";
+import LocalStrategy from "passport-local";
 import methodOverride from "method-override";
 import mongoose from "mongoose";
+import passport from "passport";
 import path from "node:path";
-import reviews from "./routes/reviews.js";
+import reviewRoutes from "./routes/reviews.js";
 import session from "express-session";
+import userRoutes from "./routes/users.js";
 import { ExpressError } from "./utils/ExpressError.js";
 import { fileURLToPath } from "node:url";
+import { User } from "./models/user.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,14 +47,22 @@ app.use(flash());
 app.use(methodOverride("_method"));
 app.use(session(sesssionConfig));
 
+app.use(passport.initialize());
+app.use(passport.session()); // Must use before session()
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
 });
 
-app.use("/campgrounds", campgrounds);
-app.use("/campgrounds/:id/reviews", reviews);
+app.use("/", userRoutes);
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/reviews", reviewRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");
