@@ -48,7 +48,7 @@ app.use(methodOverride("_method"));
 app.use(session(sesssionConfig));
 
 app.use(passport.initialize());
-app.use(passport.session()); // Must use before session()
+app.use(passport.session()); // Must use after session()
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
