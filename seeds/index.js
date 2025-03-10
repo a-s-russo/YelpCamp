@@ -21,7 +21,24 @@ const seedDB = async () => {
     const price = Math.floor(Math.random() * 20) + 10;
     const camp = new Campground({
       title: `${sample(descriptors)} ${sample(places)}`,
-      image: `https://picsum.photos/400?random=${Math.random()}`,
+      images: [
+        {
+          url: "https://res.cloudinary.com/dg2qhyhap/image/upload/v1741579055/YelpCamp/m1cn0sgsxetcekdpi9rp.jpg",
+          filename: "YelpCamp/m1cn0sgsxetcekdpi9rp",
+        },
+        {
+          url: "https://res.cloudinary.com/dg2qhyhap/image/upload/v1741579058/YelpCamp/e9kqlasngsrquqrnhvp4.jpg",
+          filename: "YelpCamp/e9kqlasngsrquqrnhvp4",
+        },
+        {
+          url: "https://res.cloudinary.com/dg2qhyhap/image/upload/v1741579061/YelpCamp/eap6dkifq8b0rxgaciv3.jpg",
+          filename: "YelpCamp/eap6dkifq8b0rxgaciv3",
+        },
+        {
+          url: "https://res.cloudinary.com/dg2qhyhap/image/upload/v1741579064/YelpCamp/s4wve6cceqp8q55ept2t.jpg",
+          filename: "YelpCamp/s4wve6cceqp8q55ept2t",
+        },
+      ],
       price,
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin accumsan, urna sit amet scelerisque aliquam, urna neque aliquet sapien, vel rhoncus felis dolor sollicitudin quam. Quisque in purus malesuada, sodales mauris at, pretium tellus. Phasellus gravida ornare imperdiet. Curabitur hendrerit aliquet velit, nec sodales sapien ornare vitae. Vestibulum vitae dui gravida, ultricies leo ac, pretium purus. Cras tempus aliquam arcu, nec pretium dolor scelerisque a. Duis finibus tortor eget odio lacinia, et ullamcorper magna consectetur. Aenean scelerisque tellus libero, in malesuada dui hendrerit eu. Quisque vitae augue eget metus vestibulum imperdiet eu non risus. ",

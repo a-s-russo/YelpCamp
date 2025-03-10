@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import campgroundRoutes from "./routes/campgrounds.js";
 import ejsMate from "ejs-mate";
 import express from "express";
